@@ -1,0 +1,68 @@
+/* Homepage overrides: dark, muted hero backdrop to match reference */
+html, body { background: #0a0a0a !important; }
+
+.ds-hero-section {
+  background: url('../images/hero-bg.jpg') center top / 100% 100% no-repeat !important;
+}
+
+/* header wordmark: pale blue on the muted backdrop */
+.ds-header-wrapper a[href="/"] svg {
+  color: #8ea6cc !important;
+}
+
+/* footer wordmark keeps the DeepSeek blue */
+footer svg[width="143"] {
+  color: #4d6bfe !important;
+}
+
+/* footer sits on solid dark background */
+footer#footer { background: #0a0a0a; }
+
+/* soft readability for the notice */
+.ds-hero-section a.group { color: rgba(233,238,246,.62); }
+
+/* hide empty canvas layers (static clone) */
+.ds-hero-section canvas { opacity: 0; }
+
+/* header and hero tuning */
+.ds-header-wrapper { opacity: .72; }
+.ds-header-wrapper a[href="/"] svg { color: #96add0 !important; }
+.ds-header-wrapper .ds-locale-toggle, .ds-header-wrapper a[href*="app"] { color: rgba(255,255,255,.75); }
+
+.ds-hero-slogan { opacity: .40 !important; color: #eef3f9 !important; }
+.ds-hero-section a.group { opacity: .62; }
+.ds-hero-section .ds-glass-card {
+  background: rgba(22,25,30,.46) !important;
+  border-color: rgba(255,255,255,.10) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.ds-hero-section .ds-btn-secondary {
+  background: rgba(36,40,46,.55) !important;
+  border-color: rgba(255,255,255,.06) !important;
+  color: #eceff3 !important;
+  backdrop-filter: blur(10px);
+}
+.ds-hero-section .ds-btn-secondary:hover { background: rgba(48,53,60,.68) !important; }
+.ds-hero-send-btn { background: #4d6bfe !important; }
+.ds-hero-send-btn svg { color: #fff !important; }
+.ds-hero-toggle-btn { color: rgba(245,248,252,.9) !important; }
+.ds-hero-toggle-btn--selected { color: #9ec2ff !important; background: rgba(65,118,230,.14) !important; border-color: rgba(65,118,230,.28) !important; }
+
+/* hero vertical rhythm and input legibility */
+.ds-hero-section { padding-top: 0; }
+.ds-hero-section > .relative.z-10 { transform: translateY(-10px); }
+.hero-input { color: #f0f3f7 !important; }
+.hero-input::placeholder { color: rgba(232,238,246,.5) !important; opacity: 1; }
+.ds-header-wrapper { opacity: .66; }
+
+.ds-hero-toggle-btn:not(.ds-hero-toggle-btn--selected){border-color:transparent !important;background:transparent !important;}
+
+/* QR popover is opened by home.js */
+.ds-qr-menu { display: none; }
+
+/* make hero toggle icons visible on dark backdrop */
+.ds-hero-toggle-btn svg path { fill: currentColor !important; stroke: currentColor !important; }
+@media (max-width: 480px) {
+  .ds-hero-toggle-btn span { display: inline !important; }
+}
