@@ -34,13 +34,16 @@
     // sidebar nav
     document.querySelectorAll('.nav-item[data-nav]').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
-        e.preventDefault();
         var nav = btn.getAttribute('data-nav');
         if (['usage', 'keys', 'topup', 'billing'].indexOf(nav) >= 0) {
+          if (btn.tagName === 'A' && btn.getAttribute('href')) return;
+          e.preventDefault();
           document.querySelectorAll('.side-nav:not(.bottom) .nav-item').forEach(function (b) { b.classList.remove('active'); });
           btn.classList.add('active');
+          return;
         }
-        if (nav !== 'usage') toast('演示页面：' + btn.textContent.trim());
+        e.preventDefault();
+        toast('演示页面：' + btn.textContent.trim());
       });
     });
 
@@ -56,9 +59,51 @@
       });
     }
 
-    // top-up
-    var topup = document.getElementById('topupBtn');
-    if (topup) topup.addEventListener('click', function () { toast('演示页面：充值功能未接入'); });
+    // top-up page is a real local page; keep link navigation
+
+    // amount selection
+    var amountRow = document.getElementById('amountRow');
+    if (amountRow) {
+      amountRow.querySelectorAll('.amount-pill').forEach(function (b) {
+        b.addEventListener('click', function () {
+          amountRow.querySelectorAll('.amount-pill').forEach(function (x) { x.classList.remove('selected'); });
+          b.classList.add('selected');
+          if (b.getAttribute('data-amount') === 'custom') toast('演示页面：自定义金额');
+        });
+      });
+    }
+
+    // payment method selection
+    var payMethods = document.getElementById('payMethods');
+    if (payMethods) {
+      payMethods.querySelectorAll('.pay-method').forEach(function (m) {
+        m.addEventListener('click', function () {
+          payMethods.querySelectorAll('.pay-method').forEach(function (x) { x.classList.remove('selected'); });
+          m.classList.add('selected');
+        });
+      });
+    }
+    var payBtn = document.getElementById('payBtn');
+    if (payBtn) payBtn.addEventListener('click', function () { toast('演示页面：支付功能未接入'); });
+
+    // tabs
+    document.querySelectorAll('.page-tabs').forEach(function (tabs) {
+      tabs.querySelectorAll('.tab-pill').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.querySelectorAll('.tab-pill').forEach(function (x) { x.classList.remove('active'); });
+          tab.classList.add('active');
+          if (tab.textContent.trim() !== '充值账单' && tab.textContent.trim() !== '在线充值') toast('演示页面：' + tab.textContent.trim());
+        });
+      });
+    });
+
+    // page action buttons
+    document.querySelectorAll('.btn-dark-pill, .btn-light-pill, .head-link, .icon-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (b.id === 'createKeyBtn') { toast('演示页面：创建 API key'); return; }
+        toast('演示页面：' + (b.textContent.trim() || '操作'));
+      });
+    });
 
     // export summary CSV
     var exportBtn = document.getElementById('exportBtn');
