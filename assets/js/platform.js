@@ -63,13 +63,51 @@
 
     // amount selection
     var amountRow = document.getElementById('amountRow');
+    var payBtn = document.getElementById('payBtn');
+    var customBox = document.getElementById('customAmount');
+    var customInput = document.getElementById('customAmountInput');
+    var customHint = document.getElementById('customAmountHint');
+    var selectedAmount = '20';
+
+    function customValue() {
+      if (!customInput) return NaN;
+      var raw = customInput.value.trim();
+      if (!raw) return NaN;
+      var n = Number(raw);
+      if (!isFinite(n) || n < 1 || n > 100000) return NaN;
+      return Math.round(n * 100) / 100;
+    }
+    function updatePayState() {
+      if (!payBtn) return;
+      var valid = selectedAmount !== 'custom' || !isNaN(customValue());
+      payBtn.disabled = !valid;
+      payBtn.classList.toggle('disabled', !valid);
+    }
+    function setAmount(value) {
+      selectedAmount = String(value);
+      if (!amountRow) return;
+      amountRow.querySelectorAll('.amount-pill').forEach(function (x) {
+        x.classList.toggle('selected', x.getAttribute('data-amount') === selectedAmount);
+      });
+      if (customBox) customBox.classList.toggle('visible', selectedAmount === 'custom');
+      if (selectedAmount === 'custom' && customInput) {
+        customInput.focus();
+      }
+      updatePayState();
+    }
     if (amountRow) {
       amountRow.querySelectorAll('.amount-pill').forEach(function (b) {
         b.addEventListener('click', function () {
-          amountRow.querySelectorAll('.amount-pill').forEach(function (x) { x.classList.remove('selected'); });
-          b.classList.add('selected');
-          if (b.getAttribute('data-amount') === 'custom') toast('演示页面：自定义金额');
+          setAmount(b.getAttribute('data-amount'));
         });
+      });
+    }
+    if (customInput) {
+      customInput.addEventListener('input', function () {
+        var raw = customInput.value.trim();
+        var valid = !isNaN(customValue());
+        if (customHint) customHint.classList.toggle('error', raw !== '' && !valid);
+        updatePayState();
       });
     }
 
@@ -83,8 +121,15 @@
         });
       });
     }
-    var payBtn = document.getElementById('payBtn');
-    if (payBtn) payBtn.addEventListener('click', function () { toast('演示页面：支付功能未接入'); });
+    if (payBtn) payBtn.addEventListener('click', function () {
+      var amount = selectedAmount === 'custom' ? customValue() : Number(selectedAmount);
+      if (isNaN(amount)) {
+        if (customInput) customInput.focus();
+        toast('请输入 1 元至 100000 元之间的金额');
+        return;
+      }
+      toast('演示页面：已选择 ¥' + amount.toFixed(2) + '，支付功能未接入');
+    });
 
     // tabs
     document.querySelectorAll('.page-tabs').forEach(function (tabs) {

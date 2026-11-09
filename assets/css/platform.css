@@ -324,3 +324,16 @@ a{color:inherit;text-decoration:none}
 .page-tabs-row .page-tabs{margin-top:0}
 .page-tabs-row + .table-card{margin-top:6px}
 @media (max-width:980px){.page-tabs-row{flex-wrap:wrap}.head-links{padding-top:0}}
+
+/* custom top-up amount */
+.custom-amount{display:none;width:600px;max-width:100%;margin-top:14px}
+.custom-amount.visible{display:block}
+.custom-amount-box{height:38px;display:flex;align-items:center;gap:9px;padding:0 12px;border:1px solid #3b3d41;border-radius:6px;background:#252628;transition:border-color .16s ease}
+.custom-amount-box:focus-within{border-color:#e5e6e8}
+.custom-currency{color:#e3e5e8;font-size:14px;line-height:22px;flex:none}
+.custom-amount-box input{min-width:0;flex:1;border:0;outline:none;background:transparent;color:#f2f3f5;font:14px/22px var(--font);padding:0}
+.custom-amount-box input::-webkit-outer-spin-button,.custom-amount-box input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.custom-amount-box input[type=number]{-moz-appearance:textfield;appearance:textfield}
+.custom-amount-hint{margin-top:8px;color:#8b8e93;font-size:12px;line-height:18px}
+.custom-amount-hint.error{color:#e07b7b}
+.pay-btn.disabled,.pay-btn:disabled{background:#393a3d;color:#85878b;cursor:not-allowed}
