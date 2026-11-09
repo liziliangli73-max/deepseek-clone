@@ -8,7 +8,7 @@
   function dates() {
     var out = [];
     for (var i = 0; i < DAYS; i++) {
-      var d = new Date(2026, 9, 10 + i);
+      var d = new Date(2026, 9, 11 + i);
       out.push(d);
     }
     return out;
@@ -23,6 +23,7 @@
   function fmtInt(n) { return Number(n).toLocaleString('en-US'); }
   function fmtMoney(n) { return '¥' + Number(n).toFixed(2); }
   function fmtTokens(n) {
+    if (n >= 1e9) return (Math.round(n / 1e7) / 100) + 'B';
     if (n >= 1e6) return (Math.round(n / 1e5) / 10) + 'M';
     if (n >= 1e3) return Math.round(n / 1e3) + 'K';
     return String(n);
@@ -36,22 +37,18 @@
 
   /* ---------------- data ---------------- */
   var COST_API = [
-    { color: '#3B82F6', values: arr({ 3: 0.05, 4: 0, 5: 0, 7: 1.1, 8: 1.0, 9: 0.35, 10: 0.15, 11: 0.1, 12: 0.2, 13: 0.1, 14: 0.08, 15: 0.1, 16: 0.06, 17: 0.12, 18: 0.9, 19: 0.08, 21: 0.06, 23: 0.05, 24: 3.0, 25: 9.1, 26: 0.1, 27: 0.05 }) },
-    { color: '#6937E6', values: arr({ 10: 0.08, 12: 0.1, 13: 0.35, 14: 0.2, 17: 2.2, 18: 0.7, 21: 0.1, 22: 0.15 }) },
-    { color: '#3FB8E2', values: arr({ 9: 0.15, 10: 0.25, 11: 0.08, 14: 1.0, 15: 0.12 }) }
+    { color: '#3B82F6', values: arr({ 24: 5.851, 25: 8.216, 26: 16.686, 27: 28.817, 28: 40.881, 29: 3.569 }) }
   ];
   var COST_MODEL = [
-    { color: '#3B82F6', values: arr({ 3: 0.05, 4: 0, 5: 0, 7: 1.2, 8: 1.05, 9: 0.4, 10: 0.18, 11: 0.12, 12: 0.25, 13: 0.12, 14: 0.1, 15: 0.12, 16: 0.08, 17: 0.14, 18: 0.95, 19: 0.1, 21: 0.07, 23: 0.05, 24: 3.1, 25: 9.6, 26: 0.12, 27: 0.06 }) },
-    { color: '#6937E6', values: arr({ 10: 0.1, 12: 0.12, 13: 0.4, 14: 0.22, 17: 2.4, 18: 0.8, 21: 0.12, 22: 0.16 }) },
-    { color: '#3FB8E2', values: arr({ 9: 0.18, 10: 0.28, 11: 0.1, 14: 1.1, 15: 0.14 }) }
+    { color: '#3B82F6', values: arr({ 24: 5.851, 25: 8.216, 26: 16.686, 27: 28.817, 28: 40.881, 29: 3.569 }) }
   ];
 
-  var FLASH_REQ = arr({ 0: 0, 1: 0, 2: 0, 3: 0, 4: 2, 5: 3, 6: 6, 7: 96, 8: 102, 9: 38, 10: 3, 11: 8, 12: 172, 13: 14, 14: 5, 15: 70, 16: 118, 17: 128, 18: 108, 19: 14, 20: 4, 21: 22, 22: 2, 23: 1, 24: 0, 25: 108, 26: 112, 27: 94, 28: 2, 29: 0 });
-  var FLASH_TOK = arr({ 7: 1.2, 8: 1.8, 9: 0.8, 10: 1.9, 11: 2.2, 12: 0.4, 13: 4.0, 14: 1.0, 15: 0.5, 16: 2.0, 17: 12.8, 18: 19.0, 19: 16.0, 20: 0.3, 21: 2.4, 22: 0.2, 23: 0.2, 24: 0.2, 25: 40.4, 26: 0.5, 27: 0.2, 28: 0.1, 29: 0.1 });
-  var PRO_REQ = arr({ 15: 2, 25: 23 });
-  var PRO_TOK = arr({ 16: 0.6, 25: 11.7 });
-  var TOOL_REQ = arr({ 25: 6 });
-  var SERVER_REQ = arr({ 25: 1 });
+  var FLASH_REQ = arr({ 24: 286, 25: 475, 26: 816, 27: 1148, 28: 1487, 29: 193 });
+  var FLASH_TOK = arr({ 24: 48.533147, 25: 85.134176, 26: 106.444288, 27: 327.243150, 28: 570.081488, 29: 76.268880 });
+  var PRO_REQ = arr({ 24: 1, 25: 18 });
+  var PRO_TOK = arr({ 24: 0.000018, 25: 7.978537 });
+  var TOOL_REQ = arr({});
+  var SERVER_REQ = arr({});
 
   /* ---------------- smooth path ---------------- */
   function monotonePath(pts) {
@@ -142,7 +139,7 @@
   /* ---------------- stacked bar cost chart ---------------- */
   function renderCost(wrap, mode) {
     var groups = mode === 'model' ? COST_MODEL : COST_API;
-    var cfg = { max: 12, ticks: [0, 6, 12], left: 34, yLabel: function (t) { return String(t); } };
+    var cfg = { max: 50, ticks: [0, 25, 50], left: 34, yLabel: function (t) { return String(t); } };
     var g = baseSvg(wrap, cfg);
     drawAxes(g, cfg);
     var totals = new Array(DAYS).fill(0);
@@ -282,9 +279,9 @@
 
   /* ---------------- chart registry ---------------- */
   var CONFIGS = {
-    flashRequests: { type: 'area', values: FLASH_REQ, max: 180, ticks: [0, 90, 180], left: 38, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } },
-    flashTokens: { type: 'tokenBars', values: FLASH_TOK, max: 50, ticks: [0, 25, 50], left: 42, yLabel: function (t) { return t === 0 ? '0' : t + 'M'; }, valueLabel: function (v) { return fmtTokens(v * 1e6); } },
-    proRequests: { type: 'area', values: PRO_REQ, max: 28, ticks: [0, 14, 28], left: 34, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } },
+    flashRequests: { type: 'area', values: FLASH_REQ, max: 1800, ticks: [0, 900, 1800], left: 44, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } },
+    flashTokens: { type: 'tokenBars', values: FLASH_TOK, max: 600, ticks: [0, 300, 600], left: 46, yLabel: function (t) { return t === 0 ? '0' : t + 'M'; }, valueLabel: function (v) { return fmtTokens(v * 1e6); } },
+    proRequests: { type: 'area', values: PRO_REQ, max: 20, ticks: [0, 10, 20], left: 34, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } },
     proTokens: { type: 'tokenBars', values: PRO_TOK, max: 16, ticks: [0, 8, 16], left: 38, yLabel: function (t) { return t === 0 ? '0' : t + 'M'; }, valueLabel: function (v) { return fmtTokens(v * 1e6); } },
     toolSearch: { type: 'area', values: TOOL_REQ, max: 8, ticks: [0, 4, 8], left: 30, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } },
     serverToolSearch: { type: 'area', values: SERVER_REQ, max: 2, ticks: [0, 1, 2], left: 30, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } }

@@ -74,7 +74,7 @@
   <main class="main">
     <header class="page-head">
       <h1>用量信息</h1>
-      <div class="page-sub">所有日期均按 GMT+8 时间显示，数据可能有 5 分钟延迟。<span class="help-dot" title="时区变更后，数据可能会同步更新">?</span></div>
+      <div class="page-sub">所有日期均按 GMT+8 时间显示；数据来自 Magpie Gateway，按 DeepSeek 官方 deepseek-flash 价格折算。<span class="help-dot" title="时区变更后，数据可能会同步更新">?</span></div>
     </header>
 
     <section class="balance-grid">
@@ -92,7 +92,7 @@
       <article class="metric-card">
         <div class="metric-head"><span class="metric-title">累计消费金额</span></div>
         <div class="metric-value-row">
-          <div class="money"><span class="big">¥48.13</span><span class="unit">CNY</span></div>
+          <div class="money"><span class="big">¥104.02</span><span class="unit">CNY</span></div>
         </div>
       </article>
     </section>
@@ -117,14 +117,14 @@
     </section>
 
     <section class="summary-grid">
-      <article class="summary-card"><div class="summary-label">消费金额</div><div class="summary-value"><span class="num">¥18.51</span><span class="unit">CNY</span></div></article>
-      <article class="summary-card"><div class="summary-label">API 请求次数</div><div class="summary-value"><span class="num">954</span></div></article>
-      <article class="summary-card"><div class="summary-label">Tokens</div><div class="summary-value"><span class="num">119,848,955</span></div></article>
+      <article class="summary-card"><div class="summary-label">消费金额</div><div class="summary-value"><span class="num">¥104.02</span><span class="unit">CNY</span></div></article>
+      <article class="summary-card"><div class="summary-label">API 请求次数</div><div class="summary-value"><span class="num">4,405</span></div></article>
+      <article class="summary-card"><div class="summary-label">Tokens</div><div class="summary-value"><span class="num">1,213,705,129</span></div></article>
     </section>
 
     <section class="chart-card cost-card">
       <div class="chart-head">
-        <div class="chart-title"><span class="t">消费金额（CNY）</span><span class="extra">¥18.51</span></div>
+        <div class="chart-title"><span class="t">消费金额（CNY）</span><span class="extra">¥104.02</span></div>
         <div class="segmented" id="costGroup">
           <button data-group="model">调用类型</button>
           <button data-group="apiKey" class="active">API Key</button>
@@ -138,11 +138,11 @@
         <h2 class="model-name">deepseek-flash</h2>
         <div class="model-grid">
           <article class="model-card">
-            <div class="m-head"><span class="m-label">API 请求次数</span><span class="m-count">922</span></div>
+            <div class="m-head"><span class="m-label">API 请求次数</span><span class="m-count">4,405</span></div>
             <div class="chart-wrap" data-chart="flashRequests"></div>
           </article>
           <article class="model-card">
-            <div class="m-head"><span class="m-label">Tokens</span><span class="m-count">107,526,826</span></div>
+            <div class="m-head"><span class="m-label">Tokens</span><span class="m-count">1,213,705,129</span></div>
             <div class="chart-wrap" data-chart="flashTokens"></div>
           </article>
         </div>
@@ -152,33 +152,18 @@
         <h2 class="model-name">deepseek-v4-pro</h2>
         <div class="model-grid">
           <article class="model-card">
-            <div class="m-head"><span class="m-label">API 请求次数</span><span class="m-count">25</span></div>
+            <div class="m-head"><span class="m-label">API 请求次数</span><span class="m-count">19</span></div>
             <div class="chart-wrap" data-chart="proRequests"></div>
           </article>
           <article class="model-card">
-            <div class="m-head"><span class="m-label">Tokens</span><span class="m-count">12,322,129</span></div>
+            <div class="m-head"><span class="m-label">Tokens</span><span class="m-count">7,978,555</span></div>
             <div class="chart-wrap" data-chart="proTokens"></div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="function-row">
-      <div class="function-block">
-        <h2 class="model-name">tool-search</h2>
-        <article class="model-card">
-          <div class="m-head"><span class="m-label">API 请求次数</span><span class="m-count">6</span></div>
-          <div class="chart-wrap" data-chart="toolSearch"></div>
-        </article>
-      </div>
-      <div class="function-block">
-        <h2 class="model-name">server-tool-search</h2>
-        <article class="model-card">
-          <div class="m-head"><span class="m-label">API 请求次数</span><span class="m-count">1</span></div>
-          <div class="chart-wrap" data-chart="serverToolSearch"></div>
-        </article>
-      </div>
-    </section>
+
   </main>
 </div>
 
