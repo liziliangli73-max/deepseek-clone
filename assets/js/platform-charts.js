@@ -14,6 +14,7 @@
     return out;
   }
   var DATES = dates();
+  var USAGE_DATA = null;
 
   function shortDate(d) { return (d.getMonth() + 1) + '/' + d.getDate(); }
   function fullDate(d) {
@@ -278,14 +279,72 @@
   }
 
   /* ---------------- chart registry ---------------- */
-  var CONFIGS = {
-    flashRequests: { type: 'area', values: FLASH_REQ, max: 1800, ticks: [0, 900, 1800], left: 44, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } },
-    flashTokens: { type: 'tokenBars', values: FLASH_TOK, max: 600, ticks: [0, 300, 600], left: 46, yLabel: function (t) { return t === 0 ? '0' : t + 'M'; }, valueLabel: function (v) { return fmtTokens(v * 1e6); } },
-    proRequests: { type: 'area', values: PRO_REQ, max: 20, ticks: [0, 10, 20], left: 34, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } },
-    proTokens: { type: 'tokenBars', values: PRO_TOK, max: 16, ticks: [0, 8, 16], left: 38, yLabel: function (t) { return t === 0 ? '0' : t + 'M'; }, valueLabel: function (v) { return fmtTokens(v * 1e6); } },
-    toolSearch: { type: 'area', values: TOOL_REQ, max: 8, ticks: [0, 4, 8], left: 30, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } },
-    serverToolSearch: { type: 'area', values: SERVER_REQ, max: 2, ticks: [0, 1, 2], left: 30, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } }
-  };
+  function buildConfigs() {
+    return {
+      flashRequests: { type: 'area', values: FLASH_REQ, max: 1800, ticks: [0, 900, 1800], left: 44, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } },
+      flashTokens: { type: 'tokenBars', values: FLASH_TOK, max: 600, ticks: [0, 300, 600], left: 46, yLabel: function (t) { return t === 0 ? '0' : t + 'M'; }, valueLabel: function (v) { return fmtTokens(v * 1e6); } },
+      proRequests: { type: 'area', values: PRO_REQ, max: 20, ticks: [0, 10, 20], left: 34, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } },
+      proTokens: { type: 'tokenBars', values: PRO_TOK, max: 16, ticks: [0, 8, 16], left: 38, yLabel: function (t) { return t === 0 ? '0' : t + 'M'; }, valueLabel: function (v) { return fmtTokens(v * 1e6); } },
+      toolSearch: { type: 'area', values: TOOL_REQ, max: 8, ticks: [0, 4, 8], left: 30, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } },
+      serverToolSearch: { type: 'area', values: SERVER_REQ, max: 2, ticks: [0, 1, 2], left: 30, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } }
+    };
+  }
+  var CONFIGS = buildConfigs();
+
+  function setText(selector, text) {
+    document.querySelectorAll(selector).forEach(function (e) { e.textContent = text; });
+  }
+
+  function applyUsageData(data) {
+    if (!data || !data.daily || !data.daily.length) return;
+    USAGE_DATA = data;
+    DATES = data.daily.map(function (d) { return new Date(d.date + 'T00:00:00+08:00'); });
+    var costs = data.daily.map(function (d) { return d.cost || 0; });
+    COST_API = [{ color: '#3B82F6', values: costs }];
+    COST_MODEL = [{ color: '#3B82F6', values: costs }];
+    FLASH_REQ = data.daily.map(function (d) { return d.calls || 0; });
+    FLASH_TOK = data.daily.map(function (d) { return d.tokens / 1e6; });
+    if (data.pro && data.pro.daily) {
+      PRO_REQ = data.pro.daily.map(function (d) { return d.calls || 0; });
+      PRO_TOK = data.pro.daily.map(function (d) { return d.tokens / 1e6; });
+    }
+    CONFIGS = buildConfigs();
+    var cost = Number(data.cost_cny || 0);
+    var balance = Number(data.balance_cny || 0);
+    var calls = Number(data.calls || 0);
+    var tokens = Number(data.total_tokens || 0);
+    var cards = document.querySelectorAll('.balance-grid .metric-card');
+    if (cards.length > 0 && cards[0].querySelector('.big')) cards[0].querySelector('.big').textContent = fmtMoney(balance);
+    if (cards.length > 1 && cards[1].querySelector('.big')) cards[1].querySelector('.big').textContent = fmtMoney(cost);
+    var nums = document.querySelectorAll('.summary-card .num');
+    if (nums.length >= 3) {
+      nums[0].textContent = fmtMoney(cost);
+      nums[1].textContent = fmtInt(calls);
+      nums[2].textContent = fmtInt(tokens);
+    }
+    var extra = document.querySelector('.chart-title .extra');
+    if (extra) extra.textContent = fmtMoney(cost);
+    document.querySelectorAll('.model-block').forEach(function (block) {
+      var name = block.querySelector('.model-name');
+      var counts = block.querySelectorAll('.m-count');
+      if (!name || counts.length < 2) return;
+      if (name.textContent.trim() === 'deepseek-flash') {
+        counts[0].textContent = fmtInt(calls);
+        counts[1].textContent = fmtInt(tokens);
+      } else if (name.textContent.trim() === 'deepseek-v4-pro' && data.pro) {
+        counts[0].textContent = fmtInt(data.pro.calls || 0);
+        counts[1].textContent = fmtInt(data.pro.total_tokens || 0);
+      }
+    });
+    renderAll();
+  }
+
+  function loadUsageData() {
+    fetch('assets/data/usage.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(applyUsageData)
+      .catch(function () { /* keep static fallback */ });
+  }
 
   var currentMode = 'apiKey';
 
@@ -308,8 +367,12 @@
 
   window.DeepSeekCharts = {
     renderAll: renderAll,
+    applyUsageData: applyUsageData,
     setCostMode: function (mode) { currentMode = mode; var w = document.querySelector('[data-chart="cost"]'); if (w) renderCost(w, mode); }
   };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadUsageData);
+  else loadUsageData();
 
   var resizeTimer;
   window.addEventListener('resize', function () {

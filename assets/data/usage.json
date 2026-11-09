@@ -1,0 +1,382 @@
+{
+  "generated_at": "2026-11-09T13:43:02+08:00",
+  "period": "30d",
+  "model": "deepseek-v4.1-flash",
+  "calls": 4565,
+  "input_tokens": 56314080,
+  "cache_read_tokens": 1193471616,
+  "output_tokens": 3710235,
+  "total_tokens": 1253495931,
+  "cost_cny": 107.37,
+  "topup_cny": 137.0,
+  "balance_cny": 29.63,
+  "daily": [
+    {
+      "date": "2026-10-11",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-12",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-13",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-14",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-15",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-16",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-17",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-18",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-19",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-20",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-21",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-22",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-23",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-24",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-25",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-26",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-27",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-28",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-29",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-30",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-10-31",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-11-01",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-11-02",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-11-03",
+      "calls": 0,
+      "tokens": 0,
+      "cost": 0.0
+    },
+    {
+      "date": "2026-11-04",
+      "calls": 286,
+      "tokens": 48533147,
+      "cost": 5.851052200000002
+    },
+    {
+      "date": "2026-11-05",
+      "calls": 475,
+      "tokens": 85134176,
+      "cost": 8.216126080000002
+    },
+    {
+      "date": "2026-11-06",
+      "calls": 816,
+      "tokens": 106444288,
+      "cost": 16.685535079999994
+    },
+    {
+      "date": "2026-11-07",
+      "calls": 1148,
+      "tokens": 327243150,
+      "cost": 28.81679992000003
+    },
+    {
+      "date": "2026-11-08",
+      "calls": 1487,
+      "tokens": 570081488,
+      "cost": 40.881369159999984
+    },
+    {
+      "date": "2026-11-09",
+      "calls": 353,
+      "tokens": 116059682,
+      "cost": 6.920568280000003
+    }
+  ],
+  "pro": {
+    "calls": 19,
+    "total_tokens": 7978555,
+    "cost_cny": 0.77,
+    "daily": [
+      {
+        "date": "2026-10-11",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-12",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-13",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-14",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-15",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-16",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-17",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-18",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-19",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-20",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-21",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-22",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-23",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-24",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-25",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-26",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-27",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-28",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-29",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-30",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-10-31",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-11-01",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-11-02",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-11-03",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-11-04",
+        "calls": 1,
+        "tokens": 18,
+        "cost": 2.1e-05
+      },
+      {
+        "date": "2026-11-05",
+        "calls": 18,
+        "tokens": 7978537,
+        "cost": 0.7672973999999999
+      },
+      {
+        "date": "2026-11-06",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-11-07",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-11-08",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-11-09",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      }
+    ]
+  }
+}
