@@ -1,28 +1,16 @@
 {
-  "generated_at": "2026-11-10T14:00:26+08:00",
+  "generated_at": "2026-11-12T14:03:18+08:00",
   "period": "30d",
   "model": "deepseek-v4.1-flash",
-  "calls": 5600,
-  "input_tokens": 62974322,
-  "cache_read_tokens": 1370713856,
-  "output_tokens": 4269312,
-  "total_tokens": 1437957490,
-  "cost_cny": 126.58,
+  "calls": 7118,
+  "input_tokens": 69494668,
+  "cache_read_tokens": 1559632512,
+  "output_tokens": 5347494,
+  "total_tokens": 1634474674,
+  "cost_cny": 146.88,
   "topup_cny": 137.0,
-  "balance_cny": 10.42,
+  "balance_cny": -9.88,
   "daily": [
-    {
-      "date": "2026-10-12",
-      "calls": 0,
-      "tokens": 0,
-      "cost": 0.0
-    },
-    {
-      "date": "2026-10-13",
-      "calls": 0,
-      "tokens": 0,
-      "cost": 0.0
-    },
     {
       "date": "2026-10-14",
       "calls": 0,
@@ -187,9 +175,21 @@
     },
     {
       "date": "2026-11-10",
-      "calls": 207,
-      "tokens": 28564734,
-      "cost": 6.067776039999998
+      "calls": 436,
+      "tokens": 55190837,
+      "cost": 8.6640782
+    },
+    {
+      "date": "2026-11-11",
+      "calls": 1113,
+      "tokens": 160873556,
+      "cost": 16.185860320000007
+    },
+    {
+      "date": "2026-11-12",
+      "calls": 176,
+      "tokens": 9017525,
+      "cost": 1.515750159999999
     }
   ],
   "pro": {
@@ -197,18 +197,6 @@
     "total_tokens": 7978555,
     "cost_cny": 0.77,
     "daily": [
-      {
-        "date": "2026-10-12",
-        "calls": 0,
-        "tokens": 0,
-        "cost": 0.0
-      },
-      {
-        "date": "2026-10-13",
-        "calls": 0,
-        "tokens": 0,
-        "cost": 0.0
-      },
       {
         "date": "2026-10-14",
         "calls": 0,
@@ -373,6 +361,18 @@
       },
       {
         "date": "2026-11-10",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-11-11",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-11-12",
         "calls": 0,
         "tokens": 0,
         "cost": 0.0
