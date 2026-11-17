@@ -140,7 +140,8 @@
   /* ---------------- stacked bar cost chart ---------------- */
   function renderCost(wrap, mode) {
     var groups = mode === 'model' ? COST_MODEL : COST_API;
-    var cfg = { max: 50, ticks: [0, 25, 50], left: 34, yLabel: function (t) { return String(t); } };
+    var scale = (CONFIGS && CONFIGS.cost) || niceScale(50, false);
+    var cfg = { max: scale.max, ticks: scale.ticks, left: 44, yLabel: function (t) { return tickLabel(t, '', false); } };
     var g = baseSvg(wrap, cfg);
     drawAxes(g, cfg);
     var totals = new Array(DAYS).fill(0);
@@ -193,7 +194,8 @@
       pointer.setAttribute('opacity', 0); tip.style.display = 'none';
       if (mode === 'apiKey') show(4); else { pointer.setAttribute('opacity', 0); tip.style.display = 'none'; }
     });
-    if (mode === 'apiKey') show(4);
+    // 只在宽屏上预置悬停提示，窄屏默认不显示，避免挡住柱子
+    if (mode === 'apiKey' && window.innerWidth >= 768) show(4);
     wrap._resize = function () { renderCost(wrap, mode); };
   }
 
@@ -278,15 +280,53 @@
     wrap._resize = function () { renderTokenBars(wrap, cfg); };
   }
 
+  /* ---------------- axis scaling ---------------- */
+  function maxOf(values) {
+    var m = 0;
+    for (var i = 0; i < values.length; i++) {
+      var v = values[i];
+      if (v > m) m = v;
+    }
+    return m;
+  }
+
+  // 按数据最大值取一个"整数感"的坐标轴上限，留 12% 余量，刻度固定 3 档
+  function niceScale(peak, integer) {
+    if (!(peak > 0)) peak = 1;
+    var raw = peak * 1.12;
+    var exp = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10));
+    var f = raw / exp;
+    var n = f <= 1 ? 1 : f <= 1.5 ? 1.5 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 3 ? 3 : f <= 4 ? 4 : f <= 5 ? 5 : f <= 6 ? 6 : f <= 8 ? 8 : 10;
+    var max = n * exp;
+    if (integer) max = Math.max(1, Math.ceil(max));
+    return { max: max, ticks: [0, max / 2, max] };
+  }
+
+  function tickLabel(t, suffix, integer) {
+    var v = integer ? Math.round(t) : Math.round(t * 10) / 10;
+    if (v === 0) return '0';
+    return String(v) + (suffix || '');
+  }
+
   /* ---------------- chart registry ---------------- */
   function buildConfigs() {
+    var costTotals = new Array(DAYS).fill(0);
+    COST_API.forEach(function (grp) {
+      for (var i = 0; i < DAYS; i++) costTotals[i] += grp.values[i] || 0;
+    });
+    var costScale = niceScale(maxOf(costTotals), false);
+    var flashReqScale = niceScale(maxOf(FLASH_REQ), true);
+    var flashTokScale = niceScale(maxOf(FLASH_TOK), false);
+    var proReqScale = niceScale(maxOf(PRO_REQ), true);
+    var proTokScale = niceScale(maxOf(PRO_TOK), false);
     return {
-      flashRequests: { type: 'area', values: FLASH_REQ, max: 1800, ticks: [0, 900, 1800], left: 44, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } },
-      flashTokens: { type: 'tokenBars', values: FLASH_TOK, max: 600, ticks: [0, 300, 600], left: 46, yLabel: function (t) { return t === 0 ? '0' : t + 'M'; }, valueLabel: function (v) { return fmtTokens(v * 1e6); } },
-      proRequests: { type: 'area', values: PRO_REQ, max: 20, ticks: [0, 10, 20], left: 34, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } },
-      proTokens: { type: 'tokenBars', values: PRO_TOK, max: 16, ticks: [0, 8, 16], left: 38, yLabel: function (t) { return t === 0 ? '0' : t + 'M'; }, valueLabel: function (v) { return fmtTokens(v * 1e6); } },
-      toolSearch: { type: 'area', values: TOOL_REQ, max: 8, ticks: [0, 4, 8], left: 30, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } },
-      serverToolSearch: { type: 'area', values: SERVER_REQ, max: 2, ticks: [0, 1, 2], left: 30, yLabel: function (t) { return String(t); }, valueLabel: function (v) { return fmtInt(v); } }
+      cost: costScale,
+      flashRequests: { type: 'area', values: FLASH_REQ, max: flashReqScale.max, ticks: flashReqScale.ticks, left: 52, yLabel: function (t) { return tickLabel(t, '', true); }, valueLabel: function (v) { return fmtInt(v); } },
+      flashTokens: { type: 'tokenBars', values: FLASH_TOK, max: flashTokScale.max, ticks: flashTokScale.ticks, left: 52, yLabel: function (t) { return tickLabel(t, 'M', false); }, valueLabel: function (v) { return fmtTokens(v * 1e6); } },
+      proRequests: { type: 'area', values: PRO_REQ, max: proReqScale.max, ticks: proReqScale.ticks, left: 44, yLabel: function (t) { return tickLabel(t, '', true); }, valueLabel: function (v) { return fmtInt(v); } },
+      proTokens: { type: 'tokenBars', values: PRO_TOK, max: proTokScale.max, ticks: proTokScale.ticks, left: 46, yLabel: function (t) { return tickLabel(t, 'M', false); }, valueLabel: function (v) { return fmtTokens(v * 1e6); } },
+      toolSearch: { type: 'area', values: TOOL_REQ, max: 8, ticks: [0, 4, 8], left: 30, yLabel: function (t) { return tickLabel(t, '', true); }, valueLabel: function (v) { return fmtInt(v); } },
+      serverToolSearch: { type: 'area', values: SERVER_REQ, max: 2, ticks: [0, 1, 2], left: 30, yLabel: function (t) { return tickLabel(t, '', true); }, valueLabel: function (v) { return fmtInt(v); } }
     };
   }
   var CONFIGS = buildConfigs();
