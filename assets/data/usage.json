@@ -1,22 +1,16 @@
 {
-  "generated_at": "2026-11-22T22:07:30+08:00",
+  "generated_at": "2026-11-23T14:00:14+08:00",
   "period": "30d",
   "model": "deepseek-v4.1-flash",
-  "calls": 26171,
-  "input_tokens": 336665952,
-  "cache_read_tokens": 6206939890,
-  "output_tokens": 13446313,
-  "total_tokens": 6557052155,
-  "cost_cny": 640.91,
+  "calls": 26987,
+  "input_tokens": 340839828,
+  "cache_read_tokens": 6287010162,
+  "output_tokens": 13743838,
+  "total_tokens": 6641593828,
+  "cost_cny": 648.54,
   "topup_cny": 667.0,
-  "balance_cny": 26.09,
+  "balance_cny": 18.46,
   "daily": [
-    {
-      "date": "2026-10-24",
-      "calls": 0,
-      "tokens": 0,
-      "cost": 0.0
-    },
     {
       "date": "2026-10-25",
       "calls": 0,
@@ -187,9 +181,15 @@
     },
     {
       "date": "2026-11-22",
-      "calls": 1110,
-      "tokens": 109129115,
-      "cost": 8.131265120000013
+      "calls": 1330,
+      "tokens": 136562160,
+      "cost": 10.208168800000012
+    },
+    {
+      "date": "2026-11-23",
+      "calls": 596,
+      "tokens": 57108628,
+      "cost": 5.554773160000006
     }
   ],
   "pro": {
@@ -197,12 +197,6 @@
     "total_tokens": 37012501,
     "cost_cny": 2.29,
     "daily": [
-      {
-        "date": "2026-10-24",
-        "calls": 0,
-        "tokens": 0,
-        "cost": 0.0
-      },
       {
         "date": "2026-10-25",
         "calls": 0,
@@ -373,6 +367,12 @@
       },
       {
         "date": "2026-11-22",
+        "calls": 0,
+        "tokens": 0,
+        "cost": 0.0
+      },
+      {
+        "date": "2026-11-23",
         "calls": 0,
         "tokens": 0,
         "cost": 0.0
